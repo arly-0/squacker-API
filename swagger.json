@@ -1,0 +1,318 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Tracker API",
+    "description": "Description will appear soon..."
+  },
+  "host": "http://localhost:5000/",
+  "basePath": "/api",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "User authentication"
+    },
+    {
+      "name": "Track information"
+    },
+    {
+      "name": "Session information"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "User authentication"
+        ],
+        "description": "Creates new user account",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "$ref": "#components/schemas/UserForAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful registration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/definitions/SuccessfulAuthenticationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "value": 400,
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Validation Error"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "example": {
+                          "value": "email@email",
+                          "msg": "Invalid value",
+                          "param": "email",
+                          "location": "body"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/definitions/UnexpectedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "User authentication"
+        ],
+        "description": "Authenticates user in his account",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "$ref": "#components/schemas/UserForAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/definitions/SuccessfulAuthenticationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "value": 400,
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Validation Error"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "example": {
+                          "value": "email@email",
+                          "msg": "Invalid value",
+                          "param": "email",
+                          "location": "body"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/definitions/ResourceNotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/definitions/UnexpectedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": [
+          "User authentication"
+        ],
+        "description": "Log out user from his account",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refreshToken": {
+                  "type": "string",
+                  "required": "true"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful logout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "properties": {
+                    "acknowledged": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "deletedCount": {
+                      "type": "integer",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "definitions": {
+      "UnexpectedError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "value": 500,
+            "example": 500
+          },
+          "message": {
+            "type": "string",
+            "value": "Unexpected error",
+            "example": "Unexpected error"
+          }
+        }
+      },
+      "ResourceNotFoundError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "value": 404,
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Resourse is not found"
+          }
+        }
+      },
+      "SuccessfulAuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#components/schemas/User",
+            "example": {
+              "email": "email@email.com",
+              "id": "632ae9d51f19ac2a85e17473",
+              "isActivated": false
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "UserForAuth": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "required": "true"
+          },
+          "password": {
+            "type": "string",
+            "required": "true",
+            "minimum length": "3",
+            "maximum length": "32"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "isActivated": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
