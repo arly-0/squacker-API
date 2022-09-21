@@ -37,7 +37,7 @@ export default class UserService {
     static async login(email, password) {
         const user = await UserModel.findOne({ email })
         if (!user) {
-            throw ApiError.BadRequest('User with such email is not found')
+            throw ApiError.NotFound(`User with ${email} email address`)
         }
         const isPassEquals = await bcrypt.compare(password, user.password)
         if (!isPassEquals) {

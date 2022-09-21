@@ -15,4 +15,8 @@ export default class ApiError extends Error {
     static BadRequest(message, errors = []) {
         return new ApiError(400, message, errors)
     }
+
+    static NotFound(resourseName) {
+        return new ApiError(404, `${resourseName} is not found`)
+    }
 }
