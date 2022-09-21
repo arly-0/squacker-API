@@ -1,2 +1,5 @@
-# APP IS STILL IN DEVELOPMENT AND AWS MACHINE IS STOPPED UNTIL THE END OF API DEVELOPMENT
-Until that, if you want to check API docs, please insert content of swagger.json in the code editor field instead of it initial content<a href="https://editor.swagger.io/">here</a>
+# APP IS STILL IN DEVELOPMENT
+<a href="http://ec2-13-48-123-178.eu-north-1.compute.amazonaws.com:5000/docs/">DOCS</a> <br>
+- Server will be configured to use standard 80/443 ports with nginx later
+- Сlient side development is not started yet
+- Description will be appearing gradually...
