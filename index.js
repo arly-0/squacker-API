@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser'
 import { connect } from 'mongoose'
 import router from './router/user-routes.js'
 import errorMiddleware from './middlewares/error-middleware.js'
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './swagger.json' assert {type: 'json'}
 
 dotenv.config()
 const PORT = process.env.PORT
@@ -18,6 +20,7 @@ app.use(cors({
 }))
 app.use('/api', router)
 app.use(errorMiddleware)
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 const start = async () => {
     try {
