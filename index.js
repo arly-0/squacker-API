@@ -3,7 +3,7 @@ import express, { json } from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { connect } from 'mongoose'
-import router from './router/user-routes.js'
+import rootRouter from './router/index.js'
 import errorMiddleware from './middlewares/error-middleware.js'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './swagger.json' assert {type: 'json'}
@@ -18,7 +18,7 @@ app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL
 }))
-app.use('/api', router)
+app.use('/api', rootRouter)
 app.use(errorMiddleware)
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
