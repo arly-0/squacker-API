@@ -5,7 +5,7 @@
 - MERN & AWS
 - [API Docs](http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/docs/)
 - [Client repository](https://github.com/arly-0/-Track-session-results-tracker-client)
-- [Client app](http://tracker.eu-north-1.elasticbeanstalk.com/)
+- [Client app](https://ashy-bush-0fb8f0103.2.azurestaticapps.net/)
 
 ## Description
 
