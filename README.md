@@ -2,7 +2,7 @@
 
 ## Blitz
 - Last deploy: 01/10/2022
-- MERN & AWS
+- MERN & AWS & Azure
 - [API Docs](http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/docs/)
 - [Client repository](https://github.com/arly-0/-Track-session-results-tracker-client)
 - [Client app](https://ashy-bush-0fb8f0103.2.azurestaticapps.net/)
@@ -19,3 +19,4 @@ As a result, an idea of Squacker - web application to keep lap times in a conven
 - MERN (Mongo, Express, React, Node) stack
 - AWS Elastic Beanstalk
 - AWS CodePipeline
+- Azure Static Apps
