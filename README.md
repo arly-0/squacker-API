@@ -14,7 +14,7 @@ At the same time I was looking for a project idea to explore backend development
 As a result, an idea of Squacker - web application to keep lap times in a convenient way - came up.
 
 ### Tech
-- NodeJS & Express
+- NodeJS v16
 - Mongo DB
 - AWS Elastic Beanstalk
 - AWS CodePipeline
