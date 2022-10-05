@@ -1,5 +1,5 @@
 # Squacker - keep track of your progress on track!
-# APPLICATION IS IN DEVELOPMENT
+# APPLICATION IS IN DEVELOPMENT - CHECK DEVELOPMENT BRANCH FOR LATEST CODE CHANGES IF NEEDED
 
 - [Docs](http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/docs/)
 - NodeJS, Express, Mongo DB, AWS, Postman
