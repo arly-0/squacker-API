@@ -209,7 +209,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful logout",
+            "description": "If deletedCount > 0 log out was successful.",
             "content": {
               "application/json": {
                 "schema": {
