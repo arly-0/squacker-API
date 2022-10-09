@@ -213,7 +213,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type":"object",
+                  "type": "object",
                   "properties": {
                     "acknowledged": {
                       "type": "boolean",
@@ -224,6 +224,67 @@
                       "example": 1
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/activate/{activationLink}": {
+      "get": {
+        "tags": [
+          "User authentication"
+        ],
+        "description": "Route does not work at the moment. Responses will be added later. \n Activates user account via link sent to his email",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "activationLink",
+            "required": "true"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": [
+          "User authentication"
+        ],
+        "description": "Refreshes user's access JWT",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refreshToken": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token successfuly refreshed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/definitions/SuccessfulAuthenticationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Cannot find user with provided token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/definitions/UnauthorizedAccessError"
                 }
               }
             }
@@ -279,6 +340,19 @@
               "id": "632ae9d51f19ac2a85e17473",
               "isActivated": false
             }
+          }
+        }
+      },
+      "UnauthorizedAccessError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User is unauthorized"
+          },
+          "errors": {
+            "type": "array",
+            "example": []
           }
         }
       }
