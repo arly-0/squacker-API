@@ -3,7 +3,7 @@
 
 - [Docs](http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/docs/)
 - NodeJS, Express, Mongo DB, AWS, Postman
-- Last deploy: 09/10/2022
+- Last deploy: 01/10/2022
 - [Client repository](https://github.com/arly-0/-Track-session-results-tracker-client)
 
 ## Description
