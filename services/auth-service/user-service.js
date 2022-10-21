@@ -1,4 +1,4 @@
-import UserModel from '../../models/user-model.js'
+import UserModel from '../../models/auth-models/user-model.js'
 import bcrypt from 'bcrypt'
 import { v4 } from 'uuid'
 import MailService from './mail-service.js'
