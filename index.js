@@ -6,11 +6,12 @@ import { connect } from 'mongoose'
 import rootRouter from './router/index.js'
 import errorMiddleware from './middlewares/error-middleware.js'
 import swaggerUi from 'swagger-ui-express'
-import swaggerDocument from './swagger.json' assert {type: 'json'}
+import YAML from 'yamljs'
 
 dotenv.config()
 const PORT = process.env.PORT
 const app = express()
+const swaggerDocument = YAML.load('./docs.yaml')
 
 app.use(json())
 app.use(cookieParser())
