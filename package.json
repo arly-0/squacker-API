@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "nodemonConfig": {
+    "ext": "js, yaml, json"
+  },
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js"
