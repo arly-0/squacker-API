@@ -1,69 +1,53 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Tracker API
-  description: Description will appear soon...
-host: http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/api
-basePath: /api
-schemes:
-  - http
-  - https
+  title: Squacker API
+servers:
+  - url: http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/api
+    description: Production
+  - url: http://localhost:8080/api
+    description: Development
 tags:
   - name: User authentication
-  - name: Track information
   - name: Session information
-consumes:
-  - application/json
-produces:
-  - application/json
 paths:
   /auth/register:
     post:
       tags:
         - User authentication
       description: Creates new user account
-      parameters:
-        - in: body
-          name: body
-          required: 'true'
-          schema:
-            $ref: '#components/schemas/UserForAuth'
+      requestBody:
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#components/definitions/UserForAuth'
       responses:
         '200':
           description: Successful registration
           content:
             application/json:
               schema:
-                $ref: '#components/definitions/SuccessfulAuthenticationResponse'
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+                  user:
+                    $ref: '#components/schemas/User'
         '400':
           description: Bad request
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    value: 400
-                    example: 400
-                  message:
-                    type: string
-                    example: Validation Error
-                  errors:
-                    type: array
-                    items:
-                      type: object
-                      example:
-                        value: email@email
-                        msg: Invalid value
-                        param: email
-                        location: body
+                $ref: '#components/definitions/400Error'
         '500':
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#components/definitions/UnexpectedError'
+                $ref: '#components/definitions/500Error'
   /auth/login:
     post:
       tags:
@@ -157,7 +141,7 @@ paths:
         - in: path
           name: activationLink
           required: 'true'
-      responses: {}
+      responses: { }
   /auth/refresh:
     post:
       tags:
@@ -185,52 +169,73 @@ paths:
             application/json:
               schema:
                 $ref: '#components/definitions/UnauthorizedAccessError'
+  /session:
+    post:
+      tags:
+        - Session information
+      description: Creates new track session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Session'
 components:
   definitions:
-    UnexpectedError:
+    400Error:
       type: object
       properties:
         status:
           type: integer
-          value: 500
-          example: 500
+          example: 400
+          value: 400
         message:
           type: string
-          value: Unexpected error
-          example: Unexpected error
-    ResourceNotFoundError:
-      type: object
-      properties:
-        status:
-          type: integer
-          value: 404
-          example: 404
-        message:
-          type: string
-          example: Resource is not found
-    SuccessfulAuthenticationResponse:
-      type: object
-      properties:
-        accessToken:
-          type: string
-        refreshToken:
-          type: string
-        user:
-          $ref: '#components/schemas/User'
-          example:
-            email: email@email.com
-            id: 632ae9d51f19ac2a85e17473
-            isActivated: false
-    UnauthorizedAccessError:
-      type: object
-      properties:
-        message:
-          type: string
-          example: User is unauthorized
         errors:
           type: array
-          example: []
-  schemas:
+          items:
+            type: object
+    401Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 401
+          value: 401
+        message:
+          type: string
+          value: User is unauthorized
+        errors:
+          type: array
+          items:
+            type: object
+    404Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+          value: 404
+        message:
+          type: string
+          example: Resource *name* is not found
+    500Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 500
+          value: 500
+        message:
+          type: string
+          example: Unexpected error
+    Lap:
+      type: object
+      properties:
+        lap_number:
+          type: integer
+        lap_time:
+          type: string
     UserForAuth:
       type: object
       properties:
@@ -242,6 +247,7 @@ components:
           required: 'true'
           minimum length: '3'
           maximum length: '32'
+  schemas:
     User:
       type: object
       properties:
@@ -251,3 +257,16 @@ components:
           type: string
         isActivated:
           type: boolean
+    Session:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          type: string
+        date:
+          type: date-time
+        laps:
+          type: array
+          schema:
+            $ref: '#components/definitions/Lap'
