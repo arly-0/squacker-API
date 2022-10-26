@@ -7,7 +7,7 @@ export default class SessionController {
         try {
             const {user, date, laps, best_lap, avg_lap, track_length, note, wet} = req.body
             const session = await SessionService.create(user, date, laps, best_lap, avg_lap, track_length, note, wet)
-            return res.json(201, session)
+            return res.status(201).json(session)
         } catch (e) {
             next(e)
         }
@@ -16,9 +16,9 @@ export default class SessionController {
     static async update(req, res, next) {
         try {
             const {newSession} = req.body
-            const session_id = req.param('session_id')
+            const session_id = req.params.session_id
             const updatedSession = await SessionService.update(session_id, newSession)
-            return res.json(200, updatedSession)
+            return res.status(200).json(updatedSession)
         } catch (e) {
             next(e)
         }
