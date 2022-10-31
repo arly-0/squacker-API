@@ -53,19 +53,26 @@ paths:
       tags:
         - User authentication
       description: Authenticates user in his account
-      parameters:
-        - in: body
-          name: body
-          required: 'true'
-          schema:
-            $ref: '#components/schemas/UserForAuth'
+      requestBody:
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#components/definitions/UserForAuth'
       responses:
         '200':
           description: Successful login
           content:
             application/json:
               schema:
-                $ref: '#components/definitions/SuccessfulAuthenticationResponse'
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+                  user:
+                    $ref: '#components/schemas/User'
         '400':
           description: Bad request
           content:
@@ -94,31 +101,30 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/definitions/ResourceNotFoundError'
+                $ref: '#components/definitions/404Error'
         '500':
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#components/definitions/UnexpectedError'
+                $ref: '#components/definitions/500Error'
   /auth/logout:
     post:
       tags:
         - User authentication
-      description: Log out user from his account
-      parameters:
-        - in: body
-          name: body
-          required: 'true'
-          schema:
-            type: object
-            properties:
-              refreshToken:
-                type: string
-                required: 'true'
+      description: Log out user from account
+      requestBody:
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
       responses:
         '200':
-          description: If deletedCount > 0 log out was successful.
+          description: If deletedCount > 0, logout was successful.
           content:
             application/json:
               schema:
@@ -141,34 +147,47 @@ paths:
         - in: path
           name: activationLink
           required: 'true'
-      responses: { }
+      responses:
   /auth/refresh:
     post:
       tags:
         - User authentication
-      description: Refreshes user's access JWT
-      parameters:
-        - in: body
-          name: body
-          required: 'true'
-          schema:
-            type: object
-            properties:
-              refreshToken:
-                type: string
+      description: Refresh user JWTs
+      requestBody:
+        required: 'true'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
       responses:
         '200':
-          description: Token successfully refreshed.
+          description: Tokens successfully refreshed.
           content:
             application/json:
               schema:
-                $ref: '#components/definitions/SuccessfulAuthenticationResponse'
-        '401':
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+                  user:
+                    $ref: '#components/schemas/User'
+        '400':
+          description: Request body (refreshToken) is not provided
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/400Error'
+        '404':
           description: Cannot find user with provided token.
           content:
             application/json:
               schema:
-                $ref: '#components/definitions/UnauthorizedAccessError'
+                $ref: '#components/definitions/404Error'
   /session:
     post:
       tags:
@@ -265,8 +284,8 @@ components:
         user:
           type: string
         date:
-          type: date-time
+          type: string
         laps:
           type: array
-          schema:
+          items:
             $ref: '#components/definitions/Lap'
