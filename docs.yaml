@@ -218,6 +218,50 @@ paths:
             application/json:
               schema:
                 $ref: '#components/definitions/500Error'
+  /session/{session_id}:
+    patch:
+      tags:
+        - Session information
+      description: Updates session
+      parameters:
+        - name: session_id
+          in: path
+          description: Session id
+          required: true
+          schema:
+            type:
+              string
+      responses:
+        '200':
+          description: Returns updated session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/400Error'
+        '401':
+          description: User is unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/definitions/401Error'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/404Error'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/500Error'
 components:
   definitions:
     400Error:
@@ -303,9 +347,30 @@ components:
           type: string
         user:
           type: string
+          required: 'true'
         date:
+          nullable: 'true'
           type: string
         laps:
           type: array
+          required: 'true'
           items:
             $ref: '#components/definitions/Lap'
+        best_lap:
+          nullable: 'true'
+          type: string
+        avg_lap:
+          nullable: 'true'
+          type: string
+        track_length:
+          nullable: 'true'
+          type: number
+          format: float
+        note:
+          nullable: 'true'
+          type: string
+          maxLength: 150
+        wet:
+          nullable: 'true'
+          type: boolean
+          enum: ['true', 'false']

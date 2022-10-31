@@ -15,7 +15,7 @@ export default class SessionController {
 
     static async update(req, res, next) {
         try {
-            const {newSession} = req.body
+            const newSession = req.body
             const session_id = req.params.session_id
             const updatedSession = await SessionService.update(session_id, newSession)
             return res.status(200).json(updatedSession)
