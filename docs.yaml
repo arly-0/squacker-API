@@ -330,7 +330,6 @@ components:
           required: 'true'
           minimum length: '3'
           maximum length: '32'
-  schemas:
     User:
       type: object
       properties:
