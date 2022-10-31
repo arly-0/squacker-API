@@ -57,12 +57,12 @@ export default class UserService {
 
     static async refresh(refreshToken) {
         if (!refreshToken) {
-            throw ApiError.UnauthorizedError()
+            throw ApiError.BadRequest('Token is not provided', [])
         }
         const userData = TokenService.validateRefreshToken(refreshToken)
         const tokenFromDb = await TokenService.findToken(refreshToken)
         if (!userData || !tokenFromDb) {
-            throw ApiError.UnauthorizedError()
+            throw ApiError.NotFound('User')
         }
         const user = await UserModel.findById(userData.id)
         const userDto = new UserDto(user)
