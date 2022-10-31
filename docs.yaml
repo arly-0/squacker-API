@@ -199,6 +199,25 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Session'
+      responses:
+        '200':
+          description: Session successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '401':
+          description: User is unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/definitions/401Error'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/500Error'
 components:
   definitions:
     400Error:
@@ -223,6 +242,7 @@ components:
           value: 401
         message:
           type: string
+          example: User is unauthorized
           value: User is unauthorized
         errors:
           type: array
