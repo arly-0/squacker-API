@@ -1,6 +1,4 @@
 import SessionService from "../services/session-service/session-service.js"
-import ApiError from "../exceptions/api-error.js"
-import UserModel from "../models/auth-models/user-model.js";
 
 export default class SessionController {
     static async create(req, res, next) {
@@ -24,15 +22,21 @@ export default class SessionController {
         }
     }
 
-    static async delete() {
+    static async delete(req, res, next) {
+        try {
+            const session_id = req.params.session_id
+            const deletedSession = await SessionService.delete(session_id)
+            return res.status(200).json(deletedSession)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    static async readAll() {
 
     }
 
-    static async getAll() {
-
-    }
-
-    static async getById() {
+    static async readById() {
 
     }
 
