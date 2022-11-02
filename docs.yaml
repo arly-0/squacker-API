@@ -9,7 +9,7 @@ servers:
     description: Development
 tags:
   - name: User authentication
-  - name: Session information
+  - name: Session
 paths:
   /auth/register:
     post:
@@ -191,7 +191,7 @@ paths:
   /session:
     post:
       tags:
-        - Session information
+        - Session
       description: Creates new track session
       requestBody:
         required: true
@@ -221,12 +221,12 @@ paths:
   /session/{session_id}:
     patch:
       tags:
-        - Session information
+        - Session
       description: Updates session
       parameters:
         - name: session_id
           in: path
-          description: Session id
+          description: Session ID
           required: true
           schema:
             type:
@@ -239,7 +239,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Session'
         '400':
-          description: Bad request
+          description: Invalid format of ID
           content:
             application/json:
               schema:
@@ -252,6 +252,95 @@ paths:
                 $ref: '#/components/definitions/401Error'
         '404':
           description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/404Error'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/500Error'
+    delete:
+      tags:
+        - Session
+      description: Deletes session by ID
+      parameters:
+        - name: session_id
+          in: path
+          description: Session ID
+          required: true
+          schema:
+            type:
+              string
+      responses:
+        '200':
+          description: Returns deleted session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '400':
+          description: Invalid format of ID
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/400Error'
+        '401':
+          description: User is unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/definitions/401Error'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/404Error'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/500Error'
+  /session/{user_id}:
+    get:
+      tags:
+        - Session
+      description: Returns all sessions of a user
+      parameters:
+        - name: user_id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type:
+              string
+      responses:
+        '200':
+          description: Returns found sessions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Session'
+        '400':
+          description: Invalid format of ID
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/400Error'
+        '401':
+          description: User is unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/definitions/401Error'
+        '404':
+          description: Sessions not found
           content:
             application/json:
               schema:

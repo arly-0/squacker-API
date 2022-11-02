@@ -1,10 +1,13 @@
 import Router from 'express'
 import SessionController from "../controllers/session-controller.js"
 import authMiddleware from "../middlewares/auth-middleware.js";
+import {body} from "express-validator";
 
 const sessionRouter = new Router()
 
-sessionRouter.post('/', authMiddleware, SessionController.create)
-sessionRouter.patch('/:session_id', authMiddleware, SessionController.update)
+sessionRouter.post('/', body('note').isLength({ max: 150 }), authMiddleware, SessionController.create)
+sessionRouter.patch('/:session_id', body('note').isLength({ max: 150 }), authMiddleware, SessionController.update)
+sessionRouter.delete('/:session_id', authMiddleware, SessionController.delete)
+sessionRouter.get('/:user_id', authMiddleware, SessionController.getAllByUser)
 
 export default sessionRouter

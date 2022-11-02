@@ -24,15 +24,30 @@ export default class SessionService {
         return new SessionDto(updatedSession)
     }
 
-    static async delete() {
-
+    static async delete(session_id) {
+        if(!isValidObjectId(session_id)) {
+            throw ApiError.BadRequest('Invalid format of session id', [])
+        }
+        const session = await SessionModel.findById(session_id)
+        if(!session) {
+            throw ApiError.NotFound('Session')
+        }
+        const deletedSession = await SessionModel.findByIdAndDelete(session_id)
+        return new SessionDto(deletedSession)
     }
 
-    static async getAll() {
-
+    static async getAllByUser(user_id) {
+        if(!isValidObjectId(user_id)) {
+            throw ApiError.BadRequest('Invalid format of session id', [])
+        }
+        const sessions = await SessionModel.find({user: user_id}).exec()
+        if(!sessions) {
+            throw ApiError.NotFound('Sessions')
+        }
+        return sessions.map(session => new SessionDto(session))
     }
 
-    static async getById() {
+    static async getOneById() {
 
     }
 }
