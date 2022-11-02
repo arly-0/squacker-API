@@ -305,6 +305,49 @@ paths:
             application/json:
               schema:
                 $ref: '#components/definitions/500Error'
+    post:
+      tags:
+        - Session
+      description: Get session details by ID
+      parameters:
+        - name: session_id
+          in: path
+          description: Session ID
+          required: true
+          schema:
+            type:
+              string
+      responses:
+        '200':
+          description: Returns a session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '400':
+          description: Invalid format of ID
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/400Error'
+        '401':
+          description: User is unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/definitions/401Error'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/404Error'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/definitions/500Error'
   /session/{user_id}:
     get:
       tags:
