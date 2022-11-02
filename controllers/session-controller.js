@@ -2,7 +2,6 @@ import SessionService from "../services/session-service/session-service.js"
 import {validationResult} from "express-validator";
 import ApiError from "../exceptions/api-error.js";
 
-
 export default class SessionController {
     static async create(req, res, next) {
         try {
@@ -55,8 +54,14 @@ export default class SessionController {
         }
     }
 
-    static async readById() {
-
+    static async getDetailsByID(req, res, next) {
+        try {
+            const session_id = req.params.session_id
+            const session = await SessionService.getDetailsByID(session_id)
+            return res.status(200).json(session)
+        } catch (e) {
+            next(e)
+        }
     }
 
 }

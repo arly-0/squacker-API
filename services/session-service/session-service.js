@@ -11,7 +11,7 @@ export default class SessionService {
 
     static async update(session_id, newSession) {
         if(!isValidObjectId(session_id)) {
-            throw ApiError.BadRequest('Invalid format of session id', [])
+            throw ApiError.BadRequest('Invalid format of ID', [])
         }
         if(!newSession) {
             throw ApiError.BadRequest('No update data provided', [])
@@ -26,7 +26,7 @@ export default class SessionService {
 
     static async delete(session_id) {
         if(!isValidObjectId(session_id)) {
-            throw ApiError.BadRequest('Invalid format of session id', [])
+            throw ApiError.BadRequest('Invalid format of ID', [])
         }
         const session = await SessionModel.findById(session_id)
         if(!session) {
@@ -38,7 +38,7 @@ export default class SessionService {
 
     static async getAllByUser(user_id) {
         if(!isValidObjectId(user_id)) {
-            throw ApiError.BadRequest('Invalid format of session id', [])
+            throw ApiError.BadRequest('Invalid format of ID', [])
         }
         const sessions = await SessionModel.find({user: user_id}).exec()
         if(!sessions) {
@@ -47,8 +47,15 @@ export default class SessionService {
         return sessions.map(session => new SessionDto(session))
     }
 
-    static async getOneById() {
-
+    static async getDetailsByID(sesion_id) {
+        if(!isValidObjectId(sesion_id)) {
+            throw ApiError.BadRequest('Invalid format of ID', [])
+        }
+        const session = await SessionModel.findById(sesion_id).exec()
+        if(!session) {
+            throw ApiError.NotFound('Session')
+        }
+        return new SessionDto(session)
     }
 }
 

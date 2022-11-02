@@ -9,5 +9,6 @@ sessionRouter.post('/', body('note').isLength({ max: 150 }), authMiddleware, Ses
 sessionRouter.patch('/:session_id', body('note').isLength({ max: 150 }), authMiddleware, SessionController.update)
 sessionRouter.delete('/:session_id', authMiddleware, SessionController.delete)
 sessionRouter.get('/:user_id', authMiddleware, SessionController.getAllByUser)
+sessionRouter.post('/:session_id', authMiddleware, SessionController.getDetailsByID)
 
 export default sessionRouter
