@@ -1,9 +1,8 @@
-# Squacker - keep track of your progress on track!
-# APPLICATION IS IN DEVELOPMENT - CHECK DEVELOPMENT BRANCH FOR LATEST CODE CHANGES IF NEEDED
-
+# Squacker - keep track of your track sessions!
 - [Docs](http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/docs/)
-- NodeJS, Express, Mongo DB, AWS, Postman
-- Last deploy: 31/10/2022
+- NodeJS, Express, Mongo DB, Mongoose, AWS
+- Last deploy: 02/11/2022
+- Check backlog for further changes
 - [Client repository](https://github.com/arly-0/-Track-session-results-tracker-client)
 
 ## Description
@@ -17,6 +16,8 @@ As a result, an idea of Squacker - web application to keep lap times in a conven
 ### Tech
 - NodeJS v16
 - Mongo DB
+- Mongoose
 - AWS Elastic Beanstalk
 - AWS CodePipeline
 - Postman
+- OpenAPI 3.0
