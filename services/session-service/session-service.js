@@ -40,6 +40,7 @@ export default class SessionService {
         if(!isValidObjectId(user_id)) {
             throw ApiError.BadRequest('Invalid format of ID', [])
         }
+        
         const sessions = await SessionModel.find({user: user_id}).exec()
         if(!sessions) {
             throw ApiError.NotFound('Sessions')

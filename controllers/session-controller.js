@@ -62,6 +62,5 @@ export default class SessionController {
         } catch (e) {
             next(e)
         }
-    }
-
+     }
 }
