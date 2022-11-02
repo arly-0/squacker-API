@@ -8,5 +8,6 @@ const sessionRouter = new Router()
 sessionRouter.post('/', body('note').isLength({ max: 150 }), authMiddleware, SessionController.create)
 sessionRouter.patch('/:session_id', body('note').isLength({ max: 150 }), authMiddleware, SessionController.update)
 sessionRouter.delete('/:session_id', authMiddleware, SessionController.delete)
+sessionRouter.get('/:user_id', authMiddleware, SessionController.getAllByUser)
 
 export default sessionRouter

@@ -42,8 +42,14 @@ export default class SessionController {
         }
     }
 
-    static async readAll() {
-
+    static async getAllByUser(req, res, next) {
+        try {
+            const user_id = req.params.user_id
+            const sessions = await SessionService.getAllByUser(user_id)
+            return res.status(200).json(sessions)
+        } catch (e) {
+            next(e)
+        }
     }
 
     static async readById() {
