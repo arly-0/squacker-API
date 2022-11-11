@@ -2,6 +2,7 @@
 ## Features
 - Save all user laps in a separate collection
 - Add possibility to change password
+- API key for client
 ## Bugs
 
 ## Fixes
