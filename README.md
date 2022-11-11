@@ -1,5 +1,5 @@
 # Squacker - keep track of your track sessions!
-- [Docs](http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/docs/) - might be unavailable, working with certificates
+- [Docs](https://api.squacker.link/docs/)]
 - NodeJS, Express, Mongo DB, Mongoose, AWS
 - Last deploy: 02/11/2022
 - Check backlog for further changes
@@ -18,6 +18,8 @@ As a result, an idea of Squacker - web application to keep lap times in a conven
 - Mongo DB
 - Mongoose
 - AWS Elastic Beanstalk
+- AWS Route 53
+- AWS Certificate Manager
 - AWS CodePipeline
 - Postman
 - OpenAPI 3.0
