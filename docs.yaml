@@ -3,10 +3,8 @@ info:
   version: 1.0.0
   title: Squacker API
 servers:
-  - url: http://trackerapi-env.eba-ndvpxezg.eu-north-1.elasticbeanstalk.com/api
+  - url: https://api.squacker.link/api
     description: Production
-  - url: http://localhost:8080/api
-    description: Development
 tags:
   - name: User authentication
   - name: Session
@@ -110,6 +108,8 @@ paths:
                 $ref: '#components/definitions/500Error'
   /auth/logout:
     post:
+      security:
+        - basicAuth: []
       tags:
         - User authentication
       description: Log out user from account
@@ -138,6 +138,8 @@ paths:
                     example: 1
   /auth/activate/{activationLink}:
     get:
+      security:
+        - basicAuth: []
       tags:
         - User authentication
       description: |-
@@ -150,6 +152,8 @@ paths:
       responses:
   /auth/refresh:
     post:
+      security:
+        - basicAuth: []
       tags:
         - User authentication
       description: Refresh user JWTs
@@ -190,6 +194,8 @@ paths:
                 $ref: '#components/definitions/404Error'
   /session:
     post:
+      security:
+        - basicAuth: []
       tags:
         - Session
       description: Creates new track session
@@ -220,6 +226,8 @@ paths:
                 $ref: '#components/definitions/500Error'
   /session/{session_id}:
     patch:
+      security:
+        - basicAuth: [ ]
       tags:
         - Session
       description: Updates session
@@ -263,6 +271,8 @@ paths:
               schema:
                 $ref: '#components/definitions/500Error'
     delete:
+      security:
+        - basicAuth: [ ]
       tags:
         - Session
       description: Deletes session by ID
@@ -306,6 +316,8 @@ paths:
               schema:
                 $ref: '#components/definitions/500Error'
     post:
+      security:
+        - basicAuth: [ ]
       tags:
         - Session
       description: Get session details by ID
@@ -350,6 +362,8 @@ paths:
                 $ref: '#components/definitions/500Error'
   /session/{user_id}:
     get:
+      security:
+        - basicAuth: [ ]
       tags:
         - Session
       description: Returns all sessions of a user
@@ -395,6 +409,10 @@ paths:
               schema:
                 $ref: '#components/definitions/500Error'
 components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
   definitions:
     400Error:
       type: object
