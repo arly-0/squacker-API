@@ -8,3 +8,5 @@
 ## Fixes
 - Code optimization/refactoring
 - Activate mail service
+- Allow cross-site cookies based on environment
+- Setup VPC in AWS for static IP
