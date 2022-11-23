@@ -17,7 +17,13 @@ app.use(json())
 app.use(cookieParser())
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL
+    origin: (origin, callback) => {
+        if (process.env.CLIENT_URL.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
 }))
 app.use('/api', rootRouter)
 app.use(errorMiddleware)
