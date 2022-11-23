@@ -12,13 +12,12 @@ dotenv.config()
 const PORT = process.env.PORT
 const app = express()
 const swaggerDocument = YAML.load('./docs.yaml')
-const originURL = process.env.ENV === 'dev' ? process.env.CLIENT_URL_LOCAL : process.env.CLIENT_URL
 
 app.use(json())
 app.use(cookieParser())
 app.use(cors({
     credentials: true,
-    origin: originURL
+    origin: process.env.CLIENT_URL
 }))
 app.use('/api', rootRouter)
 app.use(errorMiddleware)
