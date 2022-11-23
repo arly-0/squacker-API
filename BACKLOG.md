@@ -10,3 +10,4 @@
 - Activate mail service
 - Allow cross-site cookies based on environment
 - Setup VPC in AWS for static IP
+- "Try it out" does not work in docs - Problem does not appear anymore
