@@ -18,7 +18,7 @@ app.use(cookieParser())
 app.use(cors({
     credentials: true,
     origin: (origin, callback) => {
-        if (process.env.CLIENT_URL.indexOf(origin) !== -1) {
+        if (process.env.CLIENT_URL.indexOf(origin) !== -1 || !origin) {
             callback(null, true)
         } else {
             callback(new Error('Not allowed by CORS'))
