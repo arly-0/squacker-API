@@ -1,5 +1,5 @@
 # Squacker - keep track of your track sessions!
-- [Docs - Deployment is being reworked and does not work](https://api.squacker.link/docs/)
+- [Docs](https://api.squacker.link/docs/)
 - NodeJS, Express, Mongo DB, Mongoose, AWS
 - Last deploy: 02/11/2022
 - Check backlog for further changes
